@@ -1,0 +1,338 @@
+\documentclass[12pt,landscape,a4paper]{article}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+\usepackage[landscape, top=1mm, left=1mm, right=1mm, bottom=2mm]{geometry}
+\usepackage{microtype}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{spverbatim}
+\usepackage{array}
+\usepackage{tasks}
+
+\usepackage{lipsum}
+\usepackage{exsheets}
+
+\pagestyle{empty}
+
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\setlength{\columnsep}{2mm}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{4}
+    \begin{center}
+        \textbf{introduction}
+
+        \textit{\TeX \& METAFONT were developed by Dr. Donald E. Knuth and were Open Source since 1980. It is a typesetting 
+        application but an own programming language with over 300 commands as well. Everything is handled as a block. 
+        It supports multiple diacritics, dialects, etc. and was finished 1990 with version 3.14. Bugs haven't been found for a 
+        long time. It's OS \& device independent and uses the .tex format, which is a DVI (Device-Independent) format. It has 
+        to be programmed for own use but there exist countless packages.}
+
+        \vspace*{4mm}
+
+        \textit{One of those packages is \LaTeX, originally developed by Leslie Lamport. It's a macropackage, tying up \TeX commands to 
+        custom markup commands. Additionally, it gives a default for formatting and layout. It has become the standard for scientific 
+        publications, also due to its functionality and remarkable line- and pagebreak algorithm. It's current version is $2^e$, 3 has
+        been in development since 1989}
+
+    \end{center}
+    \begin{center}
+        \textbf{essentials}
+
+        \spverb|\documentclass[options]{styles}| 
+        
+        \vspace*{1mm}
+        \begin{tabular*}{5cm}{cl}
+            fleqn & left align math \\
+            leqno & left align math num \\
+            \hline 
+            article & no \spverb|\part| or \spverb|\chapter| \\
+            IEEEtran & (one) IEEE standard \\
+            minimal & min formatting \\
+            slides & presentation 
+        \end{tabular*}
+
+        \vspace*{2mm}
+
+        \spverb|\usepackage[options]{package}|
+    \end{center}
+    \begin{center}
+        \textbf{structure}
+
+        \textit{Between documentclass and document is} \textbf{Preamble}\textit{, documentwide commands come there.}
+
+        \vspace*{2mm}
+
+        \textbf{structure macros}\textit{ end at begin of new structure/end of document}
+
+        \vspace*{1mm}
+        
+        \begin{tabular*}{7cm}{cl}
+            \textbf{level} & \textbf{macro} \\
+            -1 & \spverb|\part{name}| \\
+            0 & \spverb|\chapter{name}| \\
+            1 & \spverb|\section{name}| \\
+            2 & \spverb|\subsection{name}| \\
+            3 & \spverb|\subsubsection{name}| \\
+            4 & \spverb|\paragraph{name}| \\
+            5 & \spverb|\subparagraph{name}| 
+        \end{tabular*} \newline \newline
+
+        \textbf{structure environments}\textit{ use common block syntax}
+
+        \begin{tabular*}{7cm}{b{4cm}b{3cm}}
+            \begin{spverbatim}\begin{document} \end{document}\end{spverbatim} 
+            & All printed content \\
+            \begin{spverbatim}\begin{abstract} \end{abstract}\end{spverbatim} 
+            & Short synopsis (has special layout) \\
+            \begin{spverbatim}\begin{quote} \end{quote}\end{spverbatim} 
+            & Special layout for quotes \\
+            \begin{spverbatim}{ }\end{spverbatim} 
+            & custom block
+        \end{tabular*}
+
+        \vspace*{2mm}
+
+        \textbf{Page style} \textit{defines footer \& header display}
+
+        \begin{tabular*}{7cm}{cp{3cm}}
+            \spverb|\thispagestyle{empty}| & no header \& footer \\
+            \spverb|\thispagestyle{plain}| & same but page number shown \\
+            \spverb|\thispagestyle{headings}| & same but maybe header (depending on class) \\
+            \spverb|\thispagestyle{myheadings}| & setup of own h \& f 
+        \end{tabular*}
+
+        \vspace*{2mm}
+
+        \textit{Additional}\textbf{ structure manipulation commands}\textit{ exist. First 4 go into Preamble.}
+
+        \begin{tabular*}{7cm}{m{3.5cm}m{3.5cm}}
+            \begin{spverbatim}\renewcommand {\abstractname}{name}\end{spverbatim} & name of abstract \\
+            \vspace*{-3mm}
+            \begin{spverbatim}\setcounter {secnumdepth}{n}\end{spverbatim} & depth for section numbering \\
+            \vspace*{-3mm}
+            \begin{spverbatim}\setcounter{tocdepth} {n}\end{spverbatim} & depth of sections in table \\
+            \vspace*{-3mm}
+            \spverb|\setcounter{page}{n}| & reset counter to n \\
+            \vspace*{-2mm}
+            \spverb|\pagemark| & prints pagenumber \\
+            \begin{spverbatim}\addcontentsline{toc} {subsection}{name}\end{spverbatim} & force add structure to table. Place in doc defines place in table \\
+        \end{tabular*}
+
+    \end{center}
+    \begin{center}
+        \textbf{titlepage}
+
+        \textit{Content to the title can be provided through:}
+        \spverb|\title{string}|
+        \spverb|\date{date}|
+        \spverb|\author{author \and author2 \thanks{text}}|
+
+        \vspace*{2mm}
+
+        \spverb|\maketitle|
+
+        \vspace*{2mm}
+
+        \textit{A custom titlepage can be generated as well, though everything needs to be done by hand then}
+        \begin{spverbatim}
+            \begin{titlepage}
+                ...
+            \end{titlepage}
+        \end{spverbatim}
+    \end{center}
+    \begin{center}
+        \vspace*{-4mm}
+        \textbf{contenttables}
+
+        \begin{tabular*}{6cm}{cl}
+            \spverb|\tableofcontents| & section types \\
+            \spverb|\listoftables| & table envs \\
+            \spverb|\listoffigures| & figure envs
+        \end{tabular*}
+
+        \vspace*{2mm}
+
+        \textit{content can be omitted from content tables by adding * to macro name}
+
+        e.g. \spverb|\section*{}|
+
+        \vspace*{2mm}
+
+        \textit{different name for tables and inside document can be provided}
+
+        \spverb|\section[table name]{document name}|
+    \end{center}
+    \begin{center}
+        \subsubsection*{formatting}
+    \end{center}
+    \begin{center}
+        \vspace*{-1mm}
+        \textbf{text style}
+
+        \begin{tabular*}{5cm}{cl}
+            \spverb|\textbf{text}| & \textbf{bold} \\
+            \spverb|\textit{text}| & \textit{cursive} \\
+            \spverb|\texttt{text}| & \texttt{typewriter} \\
+            \spverb|\textsc{text}| & \textsc{small capitals} \\
+            \spverb|\textrm{text}| & \textrm{roman font} \\
+            \spverb|\textsf{text}| & \textsf{serif font} \\
+            \spverb|\textnormal{text}| & \textnormal{default of doc} \\
+        \end{tabular*}
+    \end{center}
+    \begin{center}
+        \textbf{text size}
+
+        \textit{Need to be placed inside blocks/envs.}
+
+        \begin{tabular*}{4.6cm}{c}
+            \spverb|\Huge| \\
+            \spverb|\huge| \\ 
+            \spverb|\LARGE| \\
+            \spverb|\Large| \\
+            \spverb|\large| \\
+            \spverb|\normalsize| \\
+            \spverb|\small| \\
+            \spverb|\footnotesize| \\
+            \spverb|\tiny| \\
+            \spverb|\scalebox{scale}{text}| 
+        \end{tabular*}
+    \end{center}
+    \begin{center}
+        \textbf{special characters}
+
+        \textit{Most special characters can be escaped.}
+
+        \begin{tabular*}{5cm}{cl}
+            \spverb|\textbackslash| & \textbackslash \\
+            \spverb|\^| & \^s \\
+            \spverb|\dq| & \dq \\
+            \spverb|\textbar| & \textbar \\
+            \spverb|\textless| & \textless \\
+            \spverb|\textgreater| & \textgreater \\
+            \spverb|\LaTeX| & \LaTeX \\
+            \spverb|\TeX| & \TeX \\
+        \end{tabular*}
+    \end{center}
+    \begin{center}
+        \textbf{newline}
+
+        \begin{tabular*}{5cm}{cl}
+            \spverb|\\| & linebreak, no par \\
+            \spverb|\newline| & same \\
+            \: & linebreak, new par \\
+            \spverb|\par| & same \\
+        \end{tabular*}
+    \end{center}
+    \begin{center}
+        \vspace*{-14mm}
+        \textbf{justification \& space}
+
+        \begin{tabular*}{6cm}{c p{3cm}}
+            \spverb|\centering| & centers block \\
+            \spverb|\raggedleft| & rights block \\
+            \spverb|\raggedright| & lefts block \\
+            \spverb|\begin{center}..| & new centered block \\       
+            \hline
+            \spverb|\,| & 0.16667em space \\
+            \spverb|\:| & default space \\
+            \spverb|~| & newline-safe def \\
+            \spverb|\hspace{n}| & n horizontal space \\
+            \hline
+            \spverb|\smallskip| & small vert space \\
+            \spverb|\medskip| & .. \\
+            \spverb|\bigskip| & .. \\
+            \spverb|\vspace{n}| & n vertical space \\
+            \hline 
+            \spverb|\newpage| & Ends column \\
+            \spverb|\clearpage| & Ends page \\
+            \spverb|\vfill| & Justifies content vertically around \\
+        \end{tabular*}
+    \end{center}
+    \begin{center}
+        \vspace*{-6mm}
+        \textbf{misc}
+
+        \begin{tabular*}{7cm}{m{4cm}m{2.5cm}}
+            \spverb|\color{color!opacity}| & color of block \\
+            \hline
+            \spverb|\noindent| & removes indent on line\\
+            \vspace*{-3mm}\begin{spverbatim}\setlength{\parindent} {n}\end{spverbatim} & sets indent for whole document \\
+            \hline 
+            \spverb|\rule{width}{thickness}| & horizontal line \\
+            \vspace*{-3mm}\begin{spverbatim}\noindent\makebox[ \linewidth]{\rule{ \paperwidth}{0.4pt}}\end{spverbatim} & document spanning line \\
+            \hline 
+            \textbackslash verb\textbar arg\textbar & inline macro display \\
+            \vspace*{-3mm}\begin{spverbatim}\begin{verbatim} .. \end{verbatim}\end{spverbatim} & multiline macro display \\
+        \end{tabular*} \newline \newline \newline \newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline
+    \end{center}
+    \begin{center}
+        \textbf{lists}
+        
+
+        \begin{tabular*}{7cm}{b{4cm}b{3cm}}
+            \begin{spverbatim}\begin{enumerate} \item entry 1 \item entry 2 \end{enumerate}\end{spverbatim} 
+            & \begin{enumerate} \item entry 1 \item entry 2 \end{enumerate} \\
+            \hline
+            \begin{spverbatim}\begin{itemize}    \item entry 1    \item entry 2 \end{itemize}\end{spverbatim}
+            & \begin{itemize} \item entry 1 \item entry 2 \end{itemize} \\
+            \hline
+            \begin{spverbatim}\begin{description} \item [name1] entry 1 \item [name2] entry 2 \end{description}\end{spverbatim}
+            & \begin{description} \item [name1] entry 1 \item [name2] entry 2 \end{description} \\
+            \hline
+        \end{tabular*}
+
+        \textit{Can be used as horizontal list. Needs tasks and exsheets package.}
+        \vspace*{-4mm}
+        \begin{spverbatim}\begin{question} question \begin{tasks}(columns) \task task 1 \task task 2 \end{tasks} \end{question}\end{spverbatim}
+        \vspace*{-4mm}
+        \begin{question} task question? \begin{tasks}(2) \task answer 1 \task answer 2 \end{tasks} \end{question} 
+        \vspace*{-7mm}
+        \rule{7cm}{0.4pt}
+        \textit{Lists of same type can be nested as well. They'll have different stylization.}
+        \vspace*{-5mm}
+        \begin{spverbatim}\begin{enumerate} \item entry 1 \begin{itemize} \item entry 1.1 \item entry 1.2 \end{itemize} \item entry 2 \end{enumerate}\end{spverbatim}
+        \vspace*{-4mm}
+        \begin{enumerate} \item entry 1 \begin{itemize} \item entry 1.1 \item entry 1.2 \end{itemize} \item entry 2 \end{enumerate}
+        \vspace*{-4mm}
+        \rule{7cm}{0.4pt}
+    \end{center}
+    \begin{center}
+        \subsubsection*{floats}
+    \end{center}
+    \begin{center}
+        \textbf{graphics}
+    \end{center}
+    \begin{center}
+        \textbf{figure}
+    \end{center}
+    \begin{center}
+        \textbf{tables}
+    \end{center}
+    \begin{center}
+        \subsubsection*{mathematics}
+    \end{center}
+    \begin{center}
+        \textbf{environments}
+    \end{center}
+    \begin{center}
+        \textbf{functions}
+    \end{center}
+
+\lipsum
+
+\end{multicols}
+\end{document}
+
+
+\begin{center}
+
+\end{center}
