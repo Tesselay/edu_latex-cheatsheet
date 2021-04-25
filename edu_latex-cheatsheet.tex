@@ -11,17 +11,22 @@
 \usepackage{spverbatim}
 \usepackage{array}
 \usepackage{tasks}
+\usepackage{exsheets}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{verbdef}
 
 \usepackage{lipsum}
-\usepackage{exsheets}
 
 \pagestyle{empty}
 
 \setcounter{secnumdepth}{0}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt plus 0.5ex}
-
 \setlength{\columnsep}{2mm}
+\graphicspath{ {F:/Schule/InfV/CheatSheet/edu_latex-cheatsheet/images/} }
+
 
 \begin{document}
 \raggedright
@@ -30,7 +35,7 @@
     \begin{center}
         \textbf{introduction}
 
-        \textit{\TeX \& METAFONT were developed by Dr. Donald E. Knuth and were Open Source since 1980. It is a typesetting 
+        \textit{\TeX\: \& METAFONT were developed by Dr. Donald E. Knuth and were Open Source since 1980. It is a typesetting 
         application but an own programming language with over 300 commands as well. Everything is handled as a block. 
         It supports multiple diacritics, dialects, etc. and was finished 1990 with version 3.14. Bugs haven't been found for a 
         long time. It's OS \& device independent and uses the .tex format, which is a DVI (Device-Independent) format. It has 
@@ -233,7 +238,6 @@
         \end{tabular*}
     \end{center}
     \begin{center}
-        \vspace*{-14mm}
         \textbf{justification \& space}
 
         \begin{tabular*}{6cm}{c p{3cm}}
@@ -255,10 +259,10 @@
             \spverb|\newpage| & Ends column \\
             \spverb|\clearpage| & Ends page \\
             \spverb|\vfill| & Justifies content vertically around \\
+            \spverb|\hfill| & Justifies content horizontally around 
         \end{tabular*}
     \end{center}
     \begin{center}
-        \vspace*{-6mm}
         \textbf{misc}
 
         \begin{tabular*}{7cm}{m{4cm}m{2.5cm}}
@@ -272,7 +276,19 @@
             \hline 
             \textbackslash verb\textbar arg\textbar & inline macro display \\
             \vspace*{-3mm}\begin{spverbatim}\begin{verbatim} .. \end{verbatim}\end{spverbatim} & multiline macro display \\
-        \end{tabular*} \newline \newline \newline \newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline
+        \end{tabular*}
+    \end{center}
+    \begin{center}
+        \textbf{packages}
+
+        \begin{tabular*}{7cm}{p{1.2cm}l}
+            babel & \spverb|\usepackage[sub, main]{babel}| \\
+            inputenc & Input enc (def=ascii, alt=utf8) \\
+            fontenc & Font enc (def=ot1, alt=t1) \\
+            hyperref & \spverb|\url{add}, \href{add}{dname}| \\
+            geometry & custom formatting \\
+            scrlayer-scrpage & \spverb|\ihead{} \chead{} \ohead{}|
+        \end{tabular*}
     \end{center}
     \begin{center}
         \textbf{lists}
@@ -307,32 +323,226 @@
     \end{center}
     \begin{center}
         \subsubsection*{floats}
+
+        \textit{Floats are containers, that won't be broken over multiple pages.}
+
+        \begin{spverbatim}
+        \begin{float}[placement]
+            ...
+        \end{float}
+        \end{spverbatim}
+
+        \begin{tabular*}{6.5cm}{c|cl}
+            \textbf{types} & \multicolumn{2}{c}{placement} \\
+            \hline
+            table & h & here \\
+            figure & t & top \\
+            subfigure & b & bottom \\
+            & p & page \\
+            & ! & override default \\
+            & H & precise here (float pkg) \\
+        \end{tabular*}
+
+        \vspace*{3mm}
+
+        \spverb|\caption[short]{title}|
+
+        \spverb|\label{name}|
+
+        \spverb|\ref{labelName}|
+
+        \textit{For better label naming, a "type:" can be added before the name.}
+
+        \begin{tabular*}{6.5cm}{cccccc}
+            \multicolumn{6}{c}{\textbf{type examples}} \\
+            ch: & sec: & subsec: & fig: & tab: & eq: \\
+            lst: & itm: & alg: & app: 
+        \end{tabular*}
     \end{center}
     \begin{center}
         \textbf{graphics}
+
+        \spverb|\usepackage{graphicx}|
+
+        \vspace*{2mm}
+
+        \textit{Either provide a image folder and only import the name (on win: / instead of \textbackslash): }
+
+        \spverb|\graphicspath{path}|
+
+        \spverb|\includegraphics{name}|
+
+        \vspace*{2mm}
+
+        \textit{or provide the path directly:}
+
+        \spverb|\includegraphics[options]{path}|
+
+        \vspace*{2mm}
+
+        \begin{tabular*}{6.5cm}{cccc}
+            \multicolumn{4}{c}{\textbf{options}} \\
+            scale & width & height & angle \\
+            draft & keepaspectratio & &   
+        \end{tabular*}
+
     \end{center}
     \begin{center}
         \textbf{figure}
+
+        \textit{figure is an environment commonly used for images. It provides labels and captions.}
+
+        \begin{spverbatim}
+        \begin{figure}[placement]
+            ... 
+        \end{figure}
+        \end{spverbatim}
+
+        \textit{More complex figures can be created with the subfigure environment. Needs the caption 
+        and subcaption package. Can be used to put multiple images in a row, etc.}
+
+        \begin{spverbatim}
+        \begin{figure} 
+            \begin{subfigure}
+                ...
+            \end{subfigure}
+            ...
+        \end{figure}
+        \end{spverbatim}
+        
     \end{center}
     \begin{center}
         \textbf{tables}
+
+        \textit{The \textbackslash table float is not necessary but provides label \& captions.}
+
+    \begin{spverbatim}
+    \begin{table}[placement]
+    \begin{tabular}[position]{layout}
+        content  
+    \end{tabular}
+    \end{table}    
+    \end{spverbatim}
+    
+    \begin{tabular*}{7cm}{m{2cm}p{4.5cm}}
+        \multicolumn{2}{c}{\textbf{Pos (mostly useless)}} \\
+        b & bottom \\
+        c & center \\
+        t & top \\
+        \hline 
+        \multicolumn{2}{c}{\textbf{Layout}} \\
+        l & left justified \\
+        c & center justified \\
+        r & right justified \\
+        p\{n\} & n wide line breakable cell. Align with top of row \\
+        m\{n\} & same. Align with center \\ 
+        b\{n\} & same. Align with bottom \\
+        | & vertical line \\
+        || & double line \\
+        \hline 
+        \multicolumn{2}{c}{\textbf{content layout}} \\
+        \& & col seperator \\ 
+        \textbackslash\textbackslash & new row \\
+        \textbackslash hline & horizontal line \\
+        \textbackslash newline & new line within cell \\
+        \textbackslash cline\{i-j\} & line begin col i \& end col j \\
+        \vspace*{-4mm}
+        \begin{spverbatim}\multicolumn {n} {layout} {content}\end{spverbatim} & content across n columns in row 
+    \end{tabular*}
+
     \end{center}
     \begin{center}
         \subsubsection*{mathematics}
+
+        \begin{tabular*}{6.5cm}{b{2cm}b{4cm}}
+            \& & justify formulas to that pos \\
+            \textbackslash nonumber & line not counted as eq \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{split} \end{split}\end{spverbatim} & use in singleine env for multiline 
+        \end{tabular*}
+
+        \vspace*{2mm}
+
+        \textit{numbering can be omitted with an * added, like \textbackslash begin\{align*\}. Labels in
+        multiline envs need to added to every wanted line for referencing.}\newline\newline\newline
+
     \end{center}
     \begin{center}
         \textbf{environments}
+
+        \begin{tabular*}{7cm}{b{3.5cm}ccc}
+            \textbf{env} & \textbf{d/t} & \textbf{sl/ml} & \textbf{num} \\
+            \vspace*{-4mm}
+            \begin{spverbatim}$..$ \end{spverbatim} & t & sl & n \\
+            \vspace*{-4mm}
+            \begin{spverbatim}$$..$$ \end{spverbatim} & d & sl & n \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\(..\) \end{spverbatim} & t & sl & n \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\[..\] \end{spverbatim} & d & sl & n \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{math}.. \end{math}\end{spverbatim} & t & sl & n \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{displaymath}.. \end{displaymath}\end{spverbatim} & d & sl & n \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{equation}.. \end{equation}\end{spverbatim} & d & sl & y \\
+        \end{tabular*}
+
+        \textit{amsmath envs are all d, ml and num.}
+
+        \begin{tabular*}{7cm}{b{3.5cm}b{3.5cm}}
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{multiline}.. \end{multiline}\end{spverbatim} & only for single eqs too long for 1 line \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{gather}.. \end{gather}\end{spverbatim} & newlines like tabular, no align \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{align}.. \end{align}\end{spverbatim} & newlines like tabular, align \\
+        \end{tabular*}
     \end{center}
     \begin{center}
         \textbf{functions}
-    \end{center}
 
-\lipsum
+        \begin{tabular*}{7cm}{cc|cc}
+            \spverb|^{x}| & $1^{x}$ & \spverb|_{x}| & $1_{x}$ \\
+            \hline
+            \spverb|\sqrt[x]{y}| & $\sqrt[x]{y}$  & \spverb|(x+y)| & $(x+y)$ \\ 
+            \hline
+            \spverb|\frac{x}{y}| & $\frac{x}{y}$ & \spverb|\{x+y\}| & $\{x+y\}$ \\
+            \hline
+            \spverb|\binom{x}{y}| & $\binom{x}{y}$ & \spverb|[x+y]| & $[x+y]$ \\
+            \hline
+        \end{tabular*}
+        \begin{tabular*}{7cm}{c|c}
+            \spverb|overbrace{x}| & $\overbrace{x}$ \\
+            \hline
+            \spverb|underbrace{x}| & $\underbrace{x}$ \\
+            \hline
+        \end{tabular*}
+        \begin{tabular*}{7cm}{b{4cm}b{3cm}}
+            \vspace*{-4mm}
+            \begin{spverbatim}\leftTYPE .. \rightTYPE\end{spverbatim} & $\left>40\right<$ $\left<40\right>$ $\left|40\right|$\\
+            \hline
+            \begin{spverbatim}\cfrac{x}{y}\end{spverbatim} & $\cfrac{x}{x + \cfrac{x}{y + \cfrac{x}{y+n}}}$\\
+            \hline
+            \multicolumn{2}{c}{\textit{Both need an env. Almost identical.}} \\
+            \vspace*{-4mm}
+            \begin{spverbatim}\begin{array} {layout}.. \end{array}\end{spverbatim} & \begin{spverbatim}\begin{matrix}.. \end{matrix}\end{spverbatim} 
+        \end{tabular*}
+
+        \vspace*{-6mm}
+       
+        \begin{gather}\begin{matrix} z & = & a \\ & = & a \\ f(x,y,z) & = & x + y + z \end{matrix}\end{gather}
+
+        \vspace*{-6mm}
+
+        \textit{with amsmath a t or d can be added to some functions for better textmode / displaymode display (e.g. \textbackslash dfrac).}
+
+
+    \end{center}
 
 \end{multicols}
 \end{document}
 
 
-\begin{center}
 
-\end{center}
+
